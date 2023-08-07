@@ -1,0 +1,23 @@
+{% extends 'blog_list.html' %}
+
+{% block title %}Search Blog{% endblock title %}
+
+{% block content %}
+  <h1 style="color:rgba(61, 14, 105, 0.829); 
+  font-family: cursive; font-size:70px">---Search Results---</h1>
+    {% for blog in object_list %}
+      <div class = "blog entry card" 
+        onclick="location.href='{% url 'blog_detail' blog.pk %}';" 
+        style="cursor: pointer;">  
+        <div class="card-body text-white bg-dark">
+          <h2><a href="{% url 'blog_detail' blog.pk %}" 
+              style="font-family: Playfair Display;">{{ blog.title }}</a></h2>
+          <p>{{ blog.body|truncatewords:10 }}</p>
+          <p>{{ blog.author }}    {{ blog.date }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <h2 style="color:rgba(61, 14, 105, 0.829); 
+      font-family: cursive; margin-top: 50px; font-size:45px">No results found</h2>
+    {% endfor %}
+{% endblock content %}

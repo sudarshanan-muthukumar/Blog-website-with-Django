@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Update Blog{% endblock title%}
+
+{% block content %}
+
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{ form.as_p }} 
+    <input type = "submit" class = "btn btn-success ml-2" style="background:#f1356d; color: white;" value = "Update"> 
+    <a class = "btn btn-primary" href = "{% url 'blog_detail' blog.pk %}" role = "button" style="background:#f1356d; color: white;">Cancel</a>
+</form>
+
+
+{% endblock content %}
+

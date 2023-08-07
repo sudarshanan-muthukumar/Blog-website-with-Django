@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Blog App{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+  <div class="mx-auto" style="width: 200px;">
+    <h1 style="color:rgba(61, 14, 105, 0.829); 
+      font-family: cursive; font-size:70px">Blogs</h1>
+  </div><br>
+  <form method='GET' action="{% url 'search_blogs' %}" style=justify-content scope:centre>
+    <input type='text' name='q' value='{{ request.GET.q }}' style="border-radius:5px;">
+    <input class="button" type='submit' value="Search" style="background-color: blanchedalmond;" >
+</form>
+<div class="row">
+  <div class="col">
+    <div class="leftside">
+      <h3 style="text-align:center; color: rgba(61, 14, 105, 0.829); 
+        font-family: Playfair Display; font-weight: bold;">REST OF BLOGS</h3>
+      {% for blog in object_list|slice:"5:" %}
+          <div class = "blog entry card" 
+            onclick="location.href='{% url 'blog_detail' blog.pk %}';" 
+              style="cursor: pointer;">  
+            <div class="card-body text-white bg-dark">
+              <h2><a href="{% url 'blog_detail' blog.pk %}" 
+                  style="font-family: Playfair Display;">{{ blog.title }}</a></h2>
+              <p>{{ blog.body|truncatewords:10 }}</p>
+              <p>{{ blog.author }}    {{ blog.date }}</p>
+            </div>
+          </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col">
+    <div class="rightside">
+      <h3 style="text-align:center; color: rgba(61, 14, 105, 0.829); 
+        font-family: Playfair Display; font-weight: bold;">RECENT BLOGS</h3>
+      {% for blog in object_list|slice:":5" %}
+            <div class = "blog entry card" 
+              onclick="location.href='{% url 'blog_detail' blog.pk %}';"; 
+                style="cursor: pointer;"> 
+              <div class="card-body text-white text-white bg-dark">
+                <h2><a href="{% url 'blog_detail' blog.pk %}" 
+                    style="font-family: Playfair Display;">{{ blog.title }}</a></h2>
+                <p>{{ blog.body|truncatewords:10 }}</p>
+                <p>{{ blog.author }}    {{ blog.date }}</p>
+              </div>
+            </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div>
+  <p> </p>
+</div>
+{% else %}
+  <div class="mx-auto" style="width: 300px;">
+  <h3>You are not logged in !</h3></div><br>
+  <div class="mx-auto" style="width: 150px;">
+  <a href="{% url 'login' %}">Log In</a> 
+  <a href="{% url 'signup' %}">Sign Up</a>
+  </div>
+{% endif %}
+
+{% endblock content %}

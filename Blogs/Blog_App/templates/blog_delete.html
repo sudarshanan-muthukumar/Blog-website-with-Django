@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Blog{% endblock title%}
+
+{% block content %}
+
+<form action = "" method ="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <h3 style="font-weight: bold; margin-top: 100px;">
+        Are you sure you want to delete the Blog "{{ blog.title }}" ?</h3><br>
+    <input type = "submit" class = "btn btn-danger" 
+        style="background:#f1356d; color: white;" value = "Delete">
+    <a class = "btn btn-primary" href = "{% url 'blog_detail' blog.pk %}" 
+        role = button style="background:#f1356d; color: white;">Cancel</a>
+</form> 
+
+
+
+
+{% endblock content %}
